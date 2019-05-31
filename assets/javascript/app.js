@@ -11,8 +11,19 @@
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
 
-  var database = firebase.datebase()
+  var database = firebase.database()
 
-  database.ref().on('value', function(snapshot){
-      if (snapshot.child()
-  })
+//   database.ref().on('value', function(snapshot){
+//       if (snapshot.child()
+//   })
+
+// vanilla JS as practice
+document.getElementById('submitTrain').addEventListener('click', function(event){
+    event.preventDefault()
+
+    let trainName = document.getElementById('trainInput').value
+    let destination = document.getElementById('destinationInput').value
+    let firstTrain = document.getElementById('firstTrainInput').value
+    let frequency = document.getElementById('frequencyInput').value
+    console.log(trainName, destination, firstTrain, frequency)
+})
