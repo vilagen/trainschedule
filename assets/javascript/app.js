@@ -56,23 +56,31 @@ database.ref().on("child_added", function(childSnapshot){
     let destination = childSnapshot.val().destination
     let firstTrain = childSnapshot.val().firstTrain
     let frequency = childSnapshot.val().frequency
+ 
+    let trainTime = Math.abs(moment().diff(moment(firstTrain, "hh:mm"), 'minutes'))
+    // console.log(trainTime)
 
-    let firstT
+    let difference = trainTime % frequency
+    // console.log(difference)
 
-    // console.log(firstTrain)
-   
-    let trainTime = moment().diff(moment(firstTrain, "hh:mm"), 'minutes')
-    console.log(trainTime)
+    let minutesAway = frequency - difference
+    console.log(minutesAway)
 
-    let remainingTime = trainTime % frequency
-    // console.log(remainingTime)
-
-    let minutesAway = frequency - remainingTime
-    // console.log(minutesAway)
-
-    // let nextArrival = moment().add(minutesAway, 'minutes').format('LT')
+    let nextArrival = moment().add(minutesAway, 'minutes').format('LT')
     // console.log(nextArrival)
 
     // let nextArrival = moment().add(minutesAway, 'minutes')
     // console.log(nextArrival)
+
+    var newRow = $("<tr>").append(
+        $("<td>").text(trainName),
+        $("<td>").text(destination),
+        $("<td>").text(frequency),
+        $("<td>").text(nextArrival),
+        $("<td>").text(minutesAway),
+    )
+
+    // console.log(newRow)
+
+    $('tbody').append(newRow)
 })
