@@ -56,15 +56,23 @@ database.ref().on("child_added", function(childSnapshot){
     let destination = childSnapshot.val().destination
     let firstTrain = childSnapshot.val().firstTrain
     let frequency = childSnapshot.val().frequency
-    
-    let trainTime = moment(firstTrain, 'LT').diff(moment(), 'minutes')
+
+    let firstT
+
+    // console.log(firstTrain)
+   
+    let trainTime = moment().diff(moment(firstTrain, "hh:mm"), 'minutes')
+    console.log(trainTime)
 
     let remainingTime = trainTime % frequency
     // console.log(remainingTime)
 
     let minutesAway = frequency - remainingTime
-    console.log(minutesAway)
+    // console.log(minutesAway)
 
-    let nextArrival = moment().add(minutesAway, 'minutes')
-    console.log(nextArrival)
+    // let nextArrival = moment().add(minutesAway, 'minutes').format('LT')
+    // console.log(nextArrival)
+
+    // let nextArrival = moment().add(minutesAway, 'minutes')
+    // console.log(nextArrival)
 })
