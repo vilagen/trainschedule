@@ -21,9 +21,50 @@
 document.getElementById('submitTrain').addEventListener('click', function(event){
     event.preventDefault()
 
+    let date = new Date()
+    console.log(date)
+
     let trainName = document.getElementById('trainInput').value
     let destination = document.getElementById('destinationInput').value
-    let firstTrain = document.getElementById('firstTrainInput').value
+    let firstTrain = moment($('#firstTrainInput').val().trim(), 'hh:mm').format('LT')
     let frequency = document.getElementById('frequencyInput').value
-    console.log(trainName, destination, firstTrain, frequency)
+
+    console.log(firstTrain)
+
+    let newTrain = {
+        trainName: trainName,
+        destination: destination,
+        firstTrain: firstTrain,
+        frequency: frequency
+    }
+
+    database.ref().push(newTrain)
+
+    alert('Train Time Updated')
+
+    document.getElementById('trainInput').value = ""
+    document.getElementById('destinationInput').value = ""
+    document.getElementById('firstTrainInput').value = ""
+    document.getElementById('frequencyInput').value = ""
+
+    
+})
+
+database.ref().on("child_added", function(childSnapshot){
+
+    let trainName = childSnapshot.val().trainName
+    let destination = childSnapshot.val().destination
+    let firstTrain = childSnapshot.val().firstTrain
+    let frequency = childSnapshot.val().frequency
+    
+    let trainTime = moment(firstTrain, 'LT').diff(moment(), 'minutes')
+
+    let remainingTime = trainTime % frequency
+    // console.log(remainingTime)
+
+    let minutesAway = frequency - remainingTime
+    console.log(minutesAway)
+
+    let nextArrival = moment().add(minutesAway, 'minutes')
+    console.log(nextArrival)
 })
