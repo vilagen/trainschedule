@@ -13,10 +13,6 @@
 
   var database = firebase.database()
 
-//   database.ref().on('value', function(snapshot){
-//       if (snapshot.child()
-//   })
-
 // vanilla JS as practice
 document.getElementById('submitTrain').addEventListener('click', function(event){
     event.preventDefault()
@@ -60,20 +56,17 @@ database.ref().on("child_added", function(childSnapshot){
     let firstTrainConverted = moment(firstTrain, "HH:mm").subtract(1, "years")
  
     let trainTime = moment().diff(moment(firstTrainConverted, "hh:mm"), 'minutes')
-    // console.log(trainTime)
+  
 
     let difference = trainTime % frequency
-    // console.log(difference)
+    
 
     let minutesAway = frequency - difference
-    // console.log(minutesAway)
+   
 
     let nextArrival = moment().add(minutesAway, 'minutes').format('LT')
     
-    // console.log(nextArrival)
-
-    // let nextArrival = moment().add(minutesAway, 'minutes')
-    // console.log(nextArrival)
+    
 
     var newRow = $("<tr>").append(
         $("<td>").text(trainName),
