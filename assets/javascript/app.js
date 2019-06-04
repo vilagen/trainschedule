@@ -76,7 +76,6 @@ database.ref().on("child_added", function(childSnapshot){
         $("<td>").text(minutesAway),
     )
 
-    // console.log(newRow)
 
     $('tbody').append(newRow)
 })
